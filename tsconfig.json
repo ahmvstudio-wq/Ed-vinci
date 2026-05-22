@@ -12,8 +12,7 @@
     "rootDir": "src",
     "jsx": "react-jsx",
     "allowArbitraryExtensions": true,
-    "allowSyntheticDefaultImports": true,
-    "allowImportingTsExtensions": true
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "frontend", "frontend/**/*", "**/frontend/**"]
