@@ -10,8 +10,11 @@
     "skipLibCheck": true,
     "outDir": "dist",
     "rootDir": "src",
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "allowArbitraryExtensions": true,
+    "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "frontend/**/*"]
+  "exclude": ["node_modules", "frontend", "frontend/**/*", "**/frontend/**"]
 }
