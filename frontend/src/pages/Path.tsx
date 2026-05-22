@@ -27,7 +27,6 @@ export function Path() {
   const [submission, setSubmission] = useState('');
   const [proofInput, setProofInput] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [syncing, setSyncing] = useState(true);
 
   // On-demand generated prompts — stored in localStorage keyed by sessionId
   const [generatedPrompts, setGeneratedPrompts] = useState<Record<number, any>>({});
@@ -69,7 +68,6 @@ export function Path() {
     // 2. Sync with Backend
     const syncProgress = async () => {
       try {
-        setSyncing(true);
         const res = await fetch(`/api/progress/${sessionId}`);
         if (res.ok) {
           const json = await res.json();
@@ -130,8 +128,6 @@ export function Path() {
         }
       } catch (err) {
         console.error('Failed to sync progress with backend', err);
-      } finally {
-        setSyncing(false);
       }
     };
 
@@ -237,7 +233,6 @@ export function Path() {
   const currentPrompt = generatedPrompts[selectedDay] || null;
 
   const isCompletedDay = progress.completedDays.includes(selectedDay);
-  const isActiveDay = selectedDay === progress.currentDay;
 
   // Streak calculations
   const calculateStreakUpdate = (lastCompletedDateStr: string | null, currentStreak: number): number => {
