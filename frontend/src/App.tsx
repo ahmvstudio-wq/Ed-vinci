@@ -9,8 +9,6 @@ import { Dashboard } from './pages/Dashboard';
 import { Onboarding } from './pages/Onboarding';
 import { Waitlist } from './pages/Waitlist';
 import { Deck } from './pages/Deck';
-import './onboarding.css';
-import './pages.css';
 
 function AnimatedRoutes() {
   const location = useLocation();
