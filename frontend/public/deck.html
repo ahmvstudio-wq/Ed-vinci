@@ -1,0 +1,2201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ed-Vinci Pitch Deck | Standalone</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ─── COLOR VARIABLES & RESET ──────────────────────────────────────────────── */
+    :root {
+      --lp-bg: #FAF9F6;
+      --lp-blue: #4F8EF7;
+      --lp-dark: #333C47;
+      --lp-mid: #54606E;
+      --lp-muted: #8E9BA7;
+      --lp-border: rgba(51,60,71,0.12);
+      --lp-card: #ffffff;
+      --lp-card-solid: #ffffff;
+      --lp-violet: #7B61FF;
+      --lp-pink: #E74F9A;
+      --lp-green: #4FC7A0;
+      --lp-orange: #F7A94F;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--lp-bg);
+      color: var(--lp-dark);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ─── AMBIENT ORBS ─────────────────────────────────────────────────────────── */
+    .dk-orbs {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .dk-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.16;
+    }
+
+    .dk-orb-1 {
+      top: -10%;
+      right: -10%;
+      width: 50vw;
+      height: 50vw;
+      background: radial-gradient(circle, var(--lp-blue) 0%, transparent 80%);
+      animation: orb-float-1 12s infinite ease-in-out;
+    }
+
+    .dk-orb-2 {
+      bottom: -15%;
+      left: -10%;
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, var(--lp-violet) 0%, transparent 80%);
+      animation: orb-float-2 16s infinite ease-in-out;
+    }
+
+    @keyframes orb-float-1 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, -20px) scale(1.1); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    @keyframes orb-float-2 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-20px, 30px) scale(1.05); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    /* ─── NAVIGATION BAR ────────────────────────────────────────────────────────── */
+    .dk-top-nav {
+      position: relative;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 32px;
+      background: rgba(250, 249, 246, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--lp-border);
+    }
+
+    .dk-back-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--lp-mid);
+      transition: color 0.2s;
+    }
+
+    .dk-back-link:hover {
+      color: var(--lp-blue);
+    }
+
+    .dk-top-nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .dk-btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: rgba(79, 142, 247, 0.06);
+      color: var(--lp-blue);
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 50px;
+      border: 1px solid rgba(79, 142, 247, 0.15);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .dk-btn-ghost:hover {
+      background: rgba(79, 142, 247, 0.12);
+      transform: translateY(-0.5px);
+    }
+
+    .dk-btn-ghost:active {
+      transform: translateY(0);
+    }
+
+    .dk-slide-counter {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--lp-mid);
+    }
+
+    .dk-counter-current {
+      color: var(--lp-blue);
+    }
+
+    .dk-counter-divider {
+      opacity: 0.4;
+    }
+
+    /* ─── SLIDE WRAPPERS & TRANSITIONS ─────────────────────────────────────────── */
+    .dk-slide-area {
+      flex: 1;
+      position: relative;
+      width: 100%;
+      z-index: 10;
+    }
+
+    .dk-slide-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .dk-slide {
+      width: 100%;
+      height: 100%;
+      max-width: 1200px;
+      padding: 40px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(50px) scale(0.98);
+      transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                  visibility 0.5s;
+      position: absolute;
+    }
+
+    .dk-slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0) scale(1);
+    }
+
+    .dk-slide.slide-left {
+      transform: translateX(-50px) scale(0.98);
+    }
+
+    .dk-slide.slide-right {
+      transform: translateX(50px) scale(0.98);
+    }
+
+    /* ─── ENTRANCE INTERACTION KEYFRAMES ───────────────────────────────────────── */
+    .dk-slide .animate-fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .dk-slide.active .animate-fade-up {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .d-1 { transition-delay: 0.08s !important; }
+    .d-2 { transition-delay: 0.16s !important; }
+    .d-3 { transition-delay: 0.24s !important; }
+    .d-4 { transition-delay: 0.32s !important; }
+    .d-5 { transition-delay: 0.40s !important; }
+
+    /* ─── SLIDE LAYOUT COMPONENTS ──────────────────────────────────────────────── */
+    .dk-slide-header {
+      margin-bottom: 32px;
+    }
+
+    .dk-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--lp-blue);
+      margin-bottom: 8px;
+    }
+
+    .dk-slide-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      line-height: 1.15;
+      color: var(--lp-dark);
+      margin: 0;
+    }
+
+    .dk-slide-subtitle {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--lp-mid);
+      margin-top: 10px;
+      max-width: 800px;
+    }
+
+    .dk-body-text {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--lp-mid);
+      margin-bottom: 20px;
+      max-width: 900px;
+    }
+
+    .dk-body-spacious {
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    .dk-body-emphasis {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--lp-dark);
+      margin-top: 28px;
+    }
+
+    /* ─── SLIDE 1: COVER ───────────────────────────────────────────────────────── */
+    .dk-slide-cover {
+      text-align: center;
+      align-items: center;
+    }
+
+    .dk-cover-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .dk-logo-icon {
+      font-size: 24px;
+      color: var(--lp-blue);
+    }
+
+    .dk-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--lp-dark);
+      letter-spacing: -0.01em;
+    }
+
+    .dk-cover-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(38px, 6vw, 64px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--lp-dark);
+      margin: 0 0 20px;
+    }
+
+    .dk-cover-gradient {
+      background: linear-gradient(135deg, var(--lp-blue) 0%, var(--lp-violet) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .dk-cover-sub {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--lp-mid);
+      max-width: 720px;
+      margin-bottom: 32px;
+      font-weight: 400;
+    }
+
+    .dk-cover-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--lp-muted);
+    }
+
+    .dk-cover-divider {
+      opacity: 0.5;
+    }
+
+    /* ─── SLIDE 2: PROBLEM ─────────────────────────────────────────────────────── */
+    .dk-problem-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin: 24px 0;
+    }
+
+    .dk-problem-stat {
+      background: var(--lp-card-solid);
+      border: 1px solid var(--lp-border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 16px rgba(51, 60, 71, 0.02);
+    }
+
+    .dk-stat-num {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--lp-blue), var(--lp-violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .dk-stat-desc {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--lp-mid);
+    }
+
+    /* ─── SLIDE 3: MARKET ──────────────────────────────────────────────────────── */
+    .dk-market-body {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .dk-tam-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .dk-tam-card {
+      background: var(--lp-card-solid);
+      border: 1px solid var(--lp-border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 16px rgba(51,60,71,0.02);
+    }
+
+    .dk-tam-label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lp-muted);
+      margin-bottom: 6px;
+    }
+
+    .dk-tam-value {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--lp-dark);
+      margin-bottom: 8px;
+    }
+
+    .dk-tam-desc {
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--lp-mid);
+    }
+
+    .dk-market-trends {
+      background: var(--lp-card-solid);
+      border: 1px solid var(--lp-border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .dk-subsection-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--lp-dark);
+      margin-bottom: 14px;
+    }
+
+    .dk-trends-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .dk-trend-item {
+      display: flex;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--lp-mid);
+      line-height: 1.5;
+    }
+
+    .dk-trend-bullet {
+      color: var(--lp-blue);
+      font-weight: bold;
+    }
+
+    /* ─── SLIDE 4: INSIGHT ─────────────────────────────────────────────────────── */
+    .dk-insight-comparison {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .dk-insight-col {
+      background: var(--lp-card-solid);
+      border: 1.5px solid var(--lp-border);
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .dk-insight-col-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .dk-insight-wrong {
+      border-top: 4px solid var(--lp-muted);
+    }
+
+    .dk-insight-wrong .dk-insight-col-title {
+      color: var(--lp-mid);
+    }
+
+    .dk-insight-right {
+      border-top: 4px solid var(--lp-blue);
+      box-shadow: 0 6px 24px rgba(79, 142, 247, 0.06);
+    }
+
+    .dk-insight-right .dk-insight-col-title {
+      color: var(--lp-blue);
+    }
+
+    .dk-insight-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .dk-insight-list li {
+      display: flex;
+      gap: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--lp-mid);
+    }
+
+    .dk-insight-list li span {
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .dk-insight-wrong li span {
+      color: #E74C3C;
+    }
+
+    .dk-insight-right li span {
+      color: var(--lp-blue);
+    }
+
+    /* ─── SLIDE 5: SOLUTION ────────────────────────────────────────────────────── */
+    .dk-solution-phases {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .dk-phase-card {
+      background: var(--lp-card-solid);
+      border: 1px solid var(--lp-border);
+      border-radius: 16px;
+      padding: 24px;
+      border-top: 3.5px solid var(--pc, var(--lp-blue));
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 4px 16px rgba(51,60,71,0.01);
+    }
+
+    .dk-phase-num {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .dk-phase-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--lp-dark);
+      margin-bottom: 6px;
+    }
+
+    .dk-phase-desc {
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--lp-mid);
+    }
+
+    /* ─── SLIDE 6: PRODUCT ─────────────────────────────────────────────────────── */
+    .dk-product-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 12px;
+    }
+
+    .dk-arch-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .dk-arch-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--lp-card-solid);
+      border: 1px solid var(--lp-border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+
+    .dk-arch-item:hover {
+      border-color: rgba(79, 142, 247, 0.25);
+    }
+
+    .dk-arch-active {
+      border-color: var(--ac, var(--lp-blue));
+      box-shadow: 0 4px 16px rgba(79,142,247,0.08);
+      transform: translateX(4px);
+      background: color-mix(in srgb, var(--ac, var(--lp-blue)) 5%, white);
+    }
+
+    .dk-arch-emoji {
+      font-size: 22px;
+    }
+
+    .dk-arch-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--lp-dark);
+    }
+
+    .dk-arch-desc {
+      font-size: 11px;
+      color: var(--lp-muted);
+      line-height: 1.4;
+      margin-top: 1px;
+    }
+
+    .dk-feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .dk-feature-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: var(--lp-card-solid);
+      border: 1px solid var(--lp-border);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+
+    .dk-feature-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .dk-feature-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--lp-dark);
+      margin-bottom: 2px;
+    }
+
+    .dk-feature-desc {
+      font-size: 12px;
+      color: var(--lp-muted);
+      line-height: 1.5;
+    }
+
+    /* ─── SLIDE 7: SCHOOLS & PARENTS ───────────────────────────────────────────── */
+    .dk-stakeholders-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    .dk-stakeholder-card {
+      background: var(--lp-card-solid);
+      border: 1.5px solid var(--lp-border);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 4px 20px rgba(79,142,247,0.02);
+      transition: all 0.3s;
+    }
+
+    .dk-stakeholder-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(79,142,247,0.06);
+    }
+
+    .dk-stakeholder-parents {
+      border-top: 3.5px solid var(--lp-pink);
+    }
+
+    .dk-stakeholder-schools {
+      border-top: 3.5px solid var(--lp-blue);
+    }
+
+    .dk-stakeholder-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .dk-stakeholder-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--lp-dark);
+      margin: 0 0 8px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .dk-stakeholder-desc {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--lp-mid);
+      margin: 0 0 18px;
+      line-height: 1.5;
+    }
+
+    .dk-stakeholder-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .dk-stakeholder-list li {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--lp-muted);
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .dk-stakeholder-list li strong {
+      color: var(--lp-dark);
+      font-weight: 600;
+    }
+
+    .dk-stakeholder-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--lp-blue);
+      font-weight: 700;
+    }
+
+    .dk-stakeholder-parents .dk-stakeholder-list li::before {
+      color: var(--lp-pink);
+    }
+
+    /* ─── SLIDE 8: BUSINESS MODEL ─────────────────────────────────────────────── */
+    .dk-model-body {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .dk-tiers-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .dk-tier-card {
+      background: var(--lp-card-solid);
+      border: 1px solid var(--lp-border);
+      border-radius: 14px;
+      padding: 22px;
+      border-top: 3px solid var(--tc, var(--lp-blue));
+    }
+
+    .dk-tier-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .dk-tier-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--lp-dark);
+    }
+
+    .dk-tier-go {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--tc, var(--lp-blue));
+      background: color-mix(in srgb, var(--tc, var(--lp-blue)) 8%, white);
+      padding: 3px 8px;
+      border-radius: 50px;
+    }
+
+    .dk-tier-price {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--tc, var(--lp-blue));
+      margin-bottom: 8px;
+    }
+
+    .dk-tier-desc {
+      font-size: 12px;
+      line-height: 1.65;
+      color: var(--lp-muted);
+      margin: 0;
+    }
+
+    .dk-unit-econ {
+      background: var(--lp-card-solid);
+      border: 1px solid var(--lp-border);
+      border-radius: 14px;
+      padding: 24px;
+    }
+
+    .dk-econ-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .dk-econ-item {
+      text-align: center;
+      padding: 12px 8px;
+      border: 1px solid var(--lp-border);
+      border-radius: 10px;
+      background: rgba(79,142,247,0.02);
+    }
+
+    .dk-econ-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lp-muted);
+      margin-bottom: 4px;
+    }
+
+    .dk-econ-value {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--lp-blue), var(--lp-violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 4px;
+    }
+
+    .dk-econ-note {
+      font-size: 10px;
+      color: var(--lp-muted);
+      line-height: 1.4;
+    }
+
+    /* ─── SLIDE 9: TRACTION & ROADMAP ─────────────────────────────────────────── */
+    .dk-traction-body {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .dk-traction-items {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .dk-traction-item {
+      background: var(--lp-card-solid);
+      border: 1px solid var(--lp-border);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .dk-traction-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lp-muted);
+      margin-bottom: 6px;
+    }
+
+    .dk-traction-value {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--lp-dark);
+      margin-bottom: 6px;
+    }
+
+    .dk-traction-note {
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--lp-muted);
+    }
+
+    .dk-roadmap-timeline {
+      position: relative;
+      padding-left: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .dk-roadmap-timeline::before {
+      content: '';
+      position: absolute;
+      left: 9px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--lp-blue), rgba(79,142,247,0.1));
+    }
+
+    .dk-roadmap-item {
+      position: relative;
+    }
+
+    .dk-roadmap-dot {
+      position: absolute;
+      left: -28px;
+      top: 8px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid var(--lp-blue);
+      z-index: 2;
+    }
+
+    .dk-roadmap-live .dk-roadmap-dot {
+      background: var(--lp-blue);
+      box-shadow: 0 0 0 3px rgba(79,142,247,0.18);
+    }
+
+    .dk-roadmap-next .dk-roadmap-dot {
+      border-color: var(--lp-violet);
+    }
+
+    .dk-roadmap-planned .dk-roadmap-dot {
+      border-color: var(--lp-muted);
+    }
+
+    .dk-roadmap-content {
+      background: var(--lp-card-solid);
+      border: 1px solid var(--lp-border);
+      border-radius: 12px;
+      padding: 16px 20px;
+    }
+
+    .dk-roadmap-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .dk-roadmap-period {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--lp-blue);
+    }
+
+    .dk-roadmap-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 50px;
+    }
+
+    .dk-badge-live {
+      color: var(--lp-blue);
+      background: rgba(79,142,247,0.08);
+    }
+
+    .dk-badge-next {
+      color: var(--lp-violet);
+      background: rgba(123,97,255,0.08);
+    }
+
+    .dk-badge-planned {
+      color: var(--lp-muted);
+      background: rgba(107,114,128,0.06);
+    }
+
+    .dk-roadmap-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--lp-dark);
+      margin: 0 0 6px;
+    }
+
+    .dk-roadmap-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 16px;
+    }
+
+    .dk-roadmap-list li {
+      font-size: 12px;
+      color: var(--lp-muted);
+    }
+
+    .dk-roadmap-list li::before {
+      content: '→ ';
+      color: var(--lp-blue);
+      font-weight: 600;
+    }
+
+    /* ─── SLIDE 10: TEAM & VISION ─────────────────────────────────────────────── */
+    .dk-vision-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .dk-pillar {
+      background: var(--lp-card-solid);
+      border: 1px solid var(--lp-border);
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .dk-pillar-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .dk-pillar-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--lp-dark);
+      margin: 0 0 6px;
+    }
+
+    .dk-pillar-desc {
+      font-size: 12px;
+      line-height: 1.65;
+      color: var(--lp-muted);
+      margin: 0;
+    }
+
+    /* ─── SLIDE 11: THE ASK ────────────────────────────────────────────────────── */
+    .dk-slide-ask {
+      text-align: center;
+      align-items: center;
+    }
+
+    .dk-ask-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .dk-ask-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(30px, 5vw, 52px);
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      line-height: 1.1;
+      color: var(--lp-dark);
+      margin: 0;
+    }
+
+    .dk-ask-details {
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .dk-ask-card {
+      background: var(--lp-card-solid);
+      border: 1.5px solid rgba(79,142,247,0.2);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 4px 24px rgba(79,142,247,0.08);
+      text-align: center;
+    }
+
+    .dk-ask-card-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lp-muted);
+      margin: 0 0 8px;
+    }
+
+    .dk-ask-amount {
+      font-size: 32px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--lp-blue), var(--lp-violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 14px;
+    }
+
+    .dk-ask-use {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--lp-muted);
+      margin: 0;
+    }
+
+    .dk-ask-ctas {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .dk-btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 26px;
+      background: linear-gradient(135deg, var(--lp-blue) 0%, #6366F1 100%);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: box-shadow 0.25s, transform 0.15s;
+    }
+
+    .dk-btn-primary:hover {
+      box-shadow: 0 6px 28px rgba(79,142,247,0.3);
+      transform: translateY(-1px);
+    }
+
+    .dk-btn-large {
+      padding: 15px 32px;
+      font-size: 15px;
+    }
+
+    .dk-ask-contact {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dk-ask-footer-text {
+      font-size: 14px;
+      color: var(--lp-muted);
+    }
+
+    /* ─── CONTROLS SECTION ─────────────────────────────────────────────────────── */
+    .dk-controls {
+      position: relative;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      border-top: 1px solid var(--lp-border);
+      background: rgba(250, 249, 246, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .dk-dots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .dk-dot-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      transition: opacity 0.2s;
+    }
+
+    .dk-dot-btn:hover {
+      opacity: 0.7;
+    }
+
+    .dk-dot-label {
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--lp-muted);
+      letter-spacing: 0.04em;
+      display: none;
+    }
+
+    .dk-dot-indicator {
+      width: 24px;
+      height: 3px;
+      border-radius: 2px;
+      background: rgba(79,142,247,0.15);
+      transition: background 0.2s, width 0.3s;
+    }
+
+    .dk-dot-active .dk-dot-indicator {
+      background: var(--lp-blue);
+      width: 32px;
+    }
+
+    .dk-dot-past .dk-dot-indicator {
+      background: rgba(79,142,247,0.35);
+    }
+
+    .dk-nav-arrows {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dk-arrow-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--lp-card-solid);
+      border: 1px solid var(--lp-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--lp-blue);
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+
+    .dk-arrow-btn:hover {
+      background: rgba(79,142,247,0.06);
+      box-shadow: 0 2px 8px rgba(79,142,247,0.1);
+    }
+
+    .dk-arrow-next {
+      background: linear-gradient(135deg, var(--lp-blue), #6366F1);
+      color: #fff;
+      border: none;
+    }
+
+    .dk-arrow-next:hover {
+      box-shadow: 0 4px 16px rgba(79,142,247,0.3);
+    }
+
+    .dk-arrow-disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+
+    .dk-arrow-disabled.dk-arrow-next {
+      opacity: 0.3;
+    }
+
+    .dk-keyboard-hint {
+      text-align: center;
+      font-size: 10px;
+      color: #c0c4cc;
+      padding: 6px;
+      background-color: var(--lp-bg);
+      border-top: 1px solid var(--lp-border);
+      letter-spacing: 0.02em;
+    }
+
+    .dk-keyboard-hint kbd {
+      font-family: inherit;
+      background: rgba(79,142,247,0.05);
+      border: 1px solid rgba(79,142,247,0.12);
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-size: 10px;
+    }
+
+    /* ─── PRINT ONLY / PDF EXPORT CONTAINER ────────────────────────────────────── */
+    .dk-print-container {
+      display: none;
+    }
+
+    /* ─── RESPONSIVE LAYOUTS ────────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      body {
+        overflow-y: auto;
+        height: auto;
+      }
+      
+      .dk-slide-area {
+        height: auto;
+        min-height: 80vh;
+      }
+
+      .dk-slide {
+        position: relative;
+        padding: 32px 20px;
+        opacity: 1;
+        visibility: visible;
+        transform: none !important;
+        display: none;
+      }
+
+      .dk-slide.active {
+        display: flex;
+      }
+
+      .dk-problem-stats,
+      .dk-tam-grid,
+      .dk-insight-comparison,
+      .dk-solution-phases,
+      .dk-product-layout,
+      .dk-stakeholders-grid,
+      .dk-tiers-row,
+      .dk-econ-grid,
+      .dk-vision-pillars {
+        grid-template-columns: 1fr;
+      }
+
+      .dk-econ-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .dk-controls {
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px;
+      }
+    }
+
+    /* ─── PRINT MODE STYLES ────────────────────────────────────────────────────── */
+    @media print {
+      @page {
+        size: landscape;
+        margin: 0;
+      }
+      
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        overflow: visible;
+        height: auto;
+        width: auto;
+      }
+
+      .dk-top-nav,
+      .dk-slide-area,
+      .dk-controls,
+      .dk-keyboard-hint,
+      .dk-orbs {
+        display: none !important;
+      }
+
+      .dk-print-container {
+        display: block;
+        width: 100%;
+      }
+
+      .dk-print-slide {
+        width: 100vw;
+        height: 100vh;
+        page-break-after: always;
+        break-after: always;
+        position: relative;
+        overflow: hidden;
+        background: #FAF9F6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+
+      /* Reset grid columns in print to prevent stacking */
+      .dk-problem-stats,
+      .dk-tam-grid,
+      .dk-vision-pillars {
+        grid-template-columns: repeat(3, 1fr) !important;
+      }
+      .dk-insight-comparison,
+      .dk-product-layout,
+      .dk-stakeholders-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      .dk-econ-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+      }
+
+      @media (orientation: portrait) {
+        .dk-print-slide {
+          width: 100vw !important;
+          height: 100vh !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+        }
+        .dk-print-slide .dk-slide {
+          width: 100vw !important;
+          height: 56.25vw !important; /* 16:9 Aspect Ratio */
+          min-height: 0 !important;
+          padding: 24px 32px !important;
+          box-sizing: border-box !important;
+          display: flex !important;
+          flex-direction: column !important;
+          justify-content: center !important;
+        }
+      }
+
+      .dk-print-slide .dk-slide {
+        position: relative;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        display: flex !important;
+      }
+
+      /* Disable all slide state animations during print */
+      * {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Orbs -->
+  <div class="dk-orbs" aria-hidden="true">
+    <div class="dk-orb dk-orb-1"></div>
+    <div class="dk-orb dk-orb-2"></div>
+  </div>
+
+  <!-- Top Nav -->
+  <nav class="dk-top-nav">
+    <a href="/" class="dk-back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Exit
+    </a>
+    <div class="dk-top-nav-actions">
+      <button class="dk-btn-ghost" onclick="window.print()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+        </svg>
+        Download PDF
+      </button>
+      <div class="dk-slide-counter">
+        <span class="dk-counter-current" id="counter-current">01</span>
+        <span class="dk-counter-divider">/</span>
+        <span class="dk-counter-total" id="counter-total">11</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Slides Area (Dynamic Web View) -->
+  <div class="dk-slide-area">
+    <div class="dk-slide-wrapper">
+
+      <!-- SLIDE 1: COVER -->
+      <div class="dk-slide active" id="slide-0">
+        <div class="dk-cover-inner">
+          <div class="dk-cover-logo animate-fade-up">
+            <span class="dk-logo-icon">◆</span>
+            <span class="dk-logo-text">Ed-Vinci</span>
+          </div>
+          <h1 class="dk-cover-headline animate-fade-up d-1">
+            The Activation Engine<br />
+            <span class="dk-cover-gradient">for the AI Generation.</span>
+          </h1>
+          <p class="dk-cover-sub animate-fade-up d-2">
+            Converting passive AI consumers into active AI builders through emotionally
+            intelligent onboarding, personalized execution systems, and persistent accountability.
+          </p>
+          <div class="dk-cover-meta animate-fade-up d-3">
+            <span>Beta Preview 1.0</span>
+            <span class="dk-cover-divider">·</span>
+            <span>2025 Release</span>
+            <span class="dk-cover-divider">·</span>
+            <span>Active Builder Protocol</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: PROBLEM -->
+      <div class="dk-slide" id="slide-1">
+        <div class="dk-slide-header animate-fade-up">
+          <span class="dk-eyebrow">The Problem</span>
+          <h2 class="dk-slide-heading">The biggest barrier keeping you from building with AI.</h2>
+        </div>
+        <p class="dk-body-text animate-fade-up d-1">
+          We are in the most abundant era of learning in human history. Every AI tool, tutorial, and framework
+          is accessible for free. And yet:
+        </p>
+        <div class="dk-problem-stats">
+          <div class="dk-problem-stat animate-fade-up d-2">
+            <div class="dk-stat-num">87%</div>
+            <div class="dk-stat-desc">of people who engage with AI educational content never build a single project.</div>
+          </div>
+          <div class="dk-problem-stat animate-fade-up d-3">
+            <div class="dk-stat-num">4.7 hrs</div>
+            <div class="dk-stat-desc">average weekly AI content consumption — with zero output produced.</div>
+          </div>
+          <div class="dk-problem-stat animate-fade-up d-4">
+            <div class="dk-stat-num">3.2%</div>
+            <div class="dk-stat-desc">completion rate for project-based AI courses. 96.8% drop off.</div>
+          </div>
+        </div>
+        <p class="dk-body-emphasis animate-fade-up d-5">
+          This is not an information problem. This is not a tools problem.<br />
+          This is a <strong>direction, momentum, and accountability problem.</strong><br />
+          And nobody is solving it.
+        </p>
+      </div>
+
+      <!-- SLIDE 3: MARKET SIZE -->
+      <div class="dk-slide" id="slide-2">
+        <div class="dk-slide-header animate-fade-up">
+          <span class="dk-eyebrow">Your Opportunity</span>
+          <h2 class="dk-slide-heading">Shift from consumer to creator.</h2>
+          <p class="dk-slide-subtitle">The difference between watching tutorials and shipping real projects is where your value is created.</p>
+        </div>
+        <div class="dk-market-body">
+          <div class="dk-tam-grid">
+            <div class="dk-tam-card animate-fade-up d-1">
+              <div class="dk-tam-label">The Consumer (90%)</div>
+              <div class="dk-tam-value" style="font-size: 26px;">Passive Use</div>
+              <div class="dk-tam-desc">Using AI only for basic search, drafting standard emails, or chat. Remaining a passive consumer of technology.</div>
+            </div>
+            <div class="dk-tam-card animate-fade-up d-2">
+              <div class="dk-tam-label">The Learner (9%)</div>
+              <div class="dk-tam-value" style="font-size: 26px;">Tutorial Trap</div>
+              <div class="dk-tam-desc">Watching hours of video courses and reading tutorials without ever shipping a single custom application.</div>
+            </div>
+            <div class="dk-tam-card animate-fade-up d-3">
+              <div class="dk-tam-label">The Builder (1%)</div>
+              <div class="dk-tam-value" style="font-size: 26px;">Active Shipping</div>
+              <div class="dk-tam-desc">Deploying real code, custom agents, and functional tools. This is the elite group where you belong.</div>
+            </div>
+          </div>
+          <div class="dk-market-trends animate-fade-up d-4">
+            <h3 class="dk-subsection-title">Why Active Building is Your Superpower</h3>
+            <div class="dk-trends-list">
+              <div class="dk-trend-item">
+                <span class="dk-trend-bullet">→</span>
+                <span>AI tools make launching ideas 10x faster, but rare are those who actually build them.</span>
+              </div>
+              <div class="dk-trend-item">
+                <span class="dk-trend-bullet">→</span>
+                <span>Shipped projects are the ultimate proof of competence, far outweighing online course certificates.</span>
+              </div>
+              <div class="dk-trend-item">
+                <span class="dk-trend-bullet">→</span>
+                <span>Personalized, active projects defeat learning anxiety and build immediate confidence.</span>
+              </div>
+              <div class="dk-trend-item">
+                <span class="dk-trend-bullet">→</span>
+                <span>Building custom workflows makes you irreplaceable in any team or industry.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: INSIGHT -->
+      <div class="dk-slide" id="slide-3">
+        <div class="dk-slide-header animate-fade-up">
+          <span class="dk-eyebrow">The Core Insight</span>
+          <h2 class="dk-slide-heading">Subtraction, not addition.</h2>
+        </div>
+        <p class="dk-body-text dk-body-spacious animate-fade-up d-1">
+          Every product in this space tries to give the user <strong>more</strong> — more courses, more tools,
+          more content, more options. The result is more paralysis.
+        </p>
+        <p class="dk-body-text dk-body-spacious animate-fade-up d-2">
+          Ed-Vinci does the opposite. We <strong>remove</strong> everything that isn't serving you and replace it
+          with exactly one clear signal: who you are as a builder and what to build next.
+        </p>
+        <div class="dk-insight-comparison">
+          <div class="dk-insight-col dk-insight-wrong animate-fade-up d-3">
+            <h4 class="dk-insight-col-title">Everyone Else</h4>
+            <ul class="dk-insight-list">
+              <li><span>✕</span> More content to consume</li>
+              <li><span>✕</span> Quiz them on preferences</li>
+              <li><span>✕</span> Rely on motivation to drive action</li>
+              <li><span>✕</span> Generic learning paths</li>
+              <li><span>✕</span> Abandon after signup</li>
+            </ul>
+          </div>
+          <div class="dk-insight-col dk-insight-right animate-fade-up d-4">
+            <h4 class="dk-insight-col-title">Ed-Vinci</h4>
+            <ul class="dk-insight-list">
+              <li><span>✓</span> Remove friction from starting</li>
+              <li><span>✓</span> Understand where they actually are</li>
+              <li><span>✓</span> Build systems that don't need motivation</li>
+              <li><span>✓</span> Archetype-specific execution paths</li>
+              <li><span>✓</span> 30-day persistent accountability</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 5: SOLUTION -->
+      <div class="dk-slide" id="slide-4">
+        <div class="dk-slide-header animate-fade-up">
+          <span class="dk-eyebrow">The Solution</span>
+          <h2 class="dk-slide-heading">A four-phase activation protocol.</h2>
+          <p class="dk-slide-subtitle">Ed-Vinci is not a course, not a chatbot, and not a productivity tool. It's a complete activation system.</p>
+        </div>
+        <div class="dk-solution-phases">
+          <div class="dk-phase-card animate-fade-up d-1" style="--pc: #4F8EF7">
+            <div class="dk-phase-num" style="color: #4F8EF7">01</div>
+            <div class="dk-phase-body">
+              <h3 class="dk-phase-title">Emotional Onboarding</h3>
+              <p class="dk-phase-desc">Conversation-first dialogue that understands your actual state — not a form. Adapts to tone, energy, and honesty. ~2 min.</p>
+            </div>
+          </div>
+          <div class="dk-phase-card animate-fade-up d-2" style="--pc: #7B61FF">
+            <div class="dk-phase-num" style="color: #7B61FF">02</div>
+            <div class="dk-phase-body">
+              <h3 class="dk-phase-title">Identity Generation</h3>
+              <p class="dk-phase-desc">Places you into one of 5 AI Builder Archetypes. Generates Momentum Score, 30-Day Roadmap, AI Buddy match, and first challenge.</p>
+            </div>
+          </div>
+          <div class="dk-phase-card animate-fade-up d-3" style="--pc: #E74F9A">
+            <div class="dk-phase-num" style="color: #E74F9A">03</div>
+            <div class="dk-phase-body">
+              <h3 class="dk-phase-title">Momentum Discovery</h3>
+              <p class="dk-phase-desc">Visual cards, binary choices, energy selection. Value given back every 30-60 seconds. Zero interrogation energy. Target: >85% completion.</p>
+            </div>
+          </div>
+          <div class="dk-phase-card animate-fade-up d-4" style="--pc: #4FC7A0">
+            <div class="dk-phase-num" style="color: #4FC7A0">04</div>
+            <div class="dk-phase-body">
+              <h3 class="dk-phase-title">30-Day Execution Loop</h3>
+              <p class="dk-phase-desc">Daily micro-challenges calibrated to your archetype. AI Buddy accountability. System designed so default action = progress.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 6: PRODUCT -->
+      <div class="dk-slide" id="slide-5">
+        <div class="dk-slide-header animate-fade-up">
+          <span class="dk-eyebrow">The Product</span>
+          <h2 class="dk-slide-heading">Personalized activation, not generic learning.</h2>
+        </div>
+        <div class="dk-product-layout">
+          <div class="dk-product-left animate-fade-up d-1">
+            <h3 class="dk-subsection-title">5 AI Builder Archetypes</h3>
+            <div class="dk-arch-list" id="arch-list-container">
+              <!-- JS will inject & manage archetype triggers -->
+              <div class="dk-arch-item dk-arch-active" style="--ac: #4F8EF7" onclick="selectArchetype(0)">
+                <span class="dk-arch-emoji">🏗️</span>
+                <div>
+                  <div class="dk-arch-name">The Architect</div>
+                  <div class="dk-arch-desc">Sees systems where others see chaos. Wants to build infrastructure that lasts.</div>
+                </div>
+              </div>
+              <div class="dk-arch-item" style="--ac: #F7A94F" onclick="selectArchetype(1)">
+                <span class="dk-arch-emoji">⚡</span>
+                <div>
+                  <div class="dk-arch-name">The Operator</div>
+                  <div class="dk-arch-desc">Makes things happen. Efficiency is their superpower. Turns ideas into execution.</div>
+                </div>
+              </div>
+              <div class="dk-arch-item" style="--ac: #E74F9A" onclick="selectArchetype(2)">
+                <span class="dk-arch-emoji">🎨</span>
+                <div>
+                  <div class="dk-arch-name">The Creator</div>
+                  <div class="dk-arch-desc">Expresses through building. Outputs aren't just functional — they're meaningful.</div>
+                </div>
+              </div>
+              <div class="dk-arch-item" style="--ac: #4FC7A0" onclick="selectArchetype(3)">
+                <span class="dk-arch-emoji">🧭</span>
+                <div>
+                  <div class="dk-arch-name">The Explorer</div>
+                  <div class="dk-arch-desc">Thrives on discovery. Always first to try new tools and push boundaries.</div>
+                </div>
+              </div>
+              <div class="dk-arch-item" style="--ac: #9B59B6" onclick="selectArchetype(4)">
+                <span class="dk-arch-emoji">🎯</span>
+                <div>
+                  <div class="dk-arch-name">The Strategist</div>
+                  <div class="dk-arch-desc">Thinks three moves ahead. Doesn't just build — they position.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="dk-product-right animate-fade-up d-2">
+            <h3 class="dk-subsection-title">Each profile includes</h3>
+            <div class="dk-feature-list">
+              <div class="dk-feature-item">
+                <span class="dk-feature-icon">📊</span>
+                <div>
+                  <div class="dk-feature-title">Momentum Score</div>
+                  <div class="dk-feature-desc">Personalized readiness index based on conversational signals.</div>
+                </div>
+              </div>
+              <div class="dk-feature-item">
+                <span class="dk-feature-icon">🗺️</span>
+                <div>
+                  <div class="dk-feature-title">30-Day Roadmap</div>
+                  <div class="dk-feature-desc">5 phase execution plan built around archetype strengths.</div>
+                </div>
+              </div>
+              <div class="dk-feature-item">
+                <span class="dk-feature-icon">🤝</span>
+                <div>
+                  <div class="dk-feature-title">AI Buddy</div>
+                  <div class="dk-feature-desc">Coach personality matched to working style (4 types).</div>
+                </div>
+              </div>
+              <div class="dk-feature-item">
+                <span class="dk-feature-icon">⚡</span>
+                <div>
+                  <div class="dk-feature-title">First Challenge</div>
+                  <div class="dk-feature-desc">Day 1 execution challenge calibrated to current level.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 7: SCHOOLS & PARENTS -->
+      <div class="dk-slide" id="slide-6">
+        <div class="dk-slide-header animate-fade-up">
+          <span class="dk-eyebrow">Schools & Parents</span>
+          <h2 class="dk-slide-heading">Critical validation for parents and schools.</h2>
+          <p class="dk-slide-subtitle">Moving students from passive consumers to active builders requires a multi-stakeholder support system.</p>
+        </div>
+        <div class="dk-stakeholders-grid">
+          <div class="dk-stakeholder-card dk-stakeholder-parents animate-fade-up d-1">
+            <div class="dk-stakeholder-icon">👨‍👩‍👧‍👦</div>
+            <h3 class="dk-stakeholder-title">For Parents</h3>
+            <p class="dk-stakeholder-desc">Redirection of passive screen-time into productive building.</p>
+            <ul class="dk-stakeholder-list">
+              <li><strong>Screen-Time Redirection:</strong> Automatically redirects passive entertainment scrolling into active coding, designing, or building.</li>
+              <li><strong>Weekly Shipped Reports:</strong> Parents get a dashboard showing actual shipped projects, not just abstract scores.</li>
+              <li><strong>Parental Cohort Support:</strong> Resources to learn alongside their kids and understand their roadmap.</li>
+            </ul>
+          </div>
+          <div class="dk-stakeholder-card dk-stakeholder-schools animate-fade-up d-2">
+            <div class="dk-stakeholder-icon">🏫</div>
+            <h3 class="dk-stakeholder-title">For Schools & Educators</h3>
+            <p class="dk-stakeholder-desc">A ready-to-deploy execution sandbox that fits any curriculum.</p>
+            <ul class="dk-stakeholder-list">
+              <li><strong>Portfolio Generation:</strong> Students finish cohorts with live, working AI-native applications they can showcase.</li>
+              <li><strong>Progress Dashboards:</strong> Teachers track momentum metrics, identifying which students are stuck in the "tutorial trap."</li>
+              <li><strong>Turnkey CS Sandbox:</strong> Acts as a zero-setup extracurricular activation club or fits into existing computer science classes.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 8: PRICING & VALUE -->
+      <div class="dk-slide" id="slide-7">
+        <div class="dk-slide-header animate-fade-up">
+          <span class="dk-eyebrow">Pricing & Value</span>
+          <h2 class="dk-slide-heading">Three paths tailored to your building goals.</h2>
+        </div>
+        <div class="dk-model-body">
+          <div class="dk-tiers-row">
+            <div class="dk-tier-card animate-fade-up d-1" style="--tc: #4F8EF7">
+              <div class="dk-tier-header">
+                <span class="dk-tier-name">Individual</span>
+                <span class="dk-tier-go">Active</span>
+              </div>
+              <div class="dk-tier-price">Free → $19/mo</div>
+              <p class="dk-tier-desc">Onboard instantly, discover your archetype, and unlock daily execution challenges and matched buddy support.</p>
+            </div>
+            <div class="dk-tier-card animate-fade-up d-2" style="--tc: #E74F9A">
+              <div class="dk-tier-header">
+                <span class="dk-tier-name">Parent</span>
+                <span class="dk-tier-go">Guided</span>
+              </div>
+              <div class="dk-tier-price">$149/mo</div>
+              <p class="dk-tier-desc">Equip your child with critical builder skills. Includes weekly project dashboard reports and professional advisor sessions.</p>
+            </div>
+            <div class="dk-tier-card animate-fade-up d-3" style="--tc: #F7A94F">
+              <div class="dk-tier-header">
+                <span class="dk-tier-name">School / Institution</span>
+                <span class="dk-tier-go">Turnkey</span>
+              </div>
+              <div class="dk-tier-price">Enterprise</div>
+              <p class="dk-tier-desc">Extracurricular builder sandboxes, group analytics, and portfolio showcases built directly into classes.</p>
+            </div>
+          </div>
+          <div class="dk-unit-econ animate-fade-up d-4">
+            <h3 class="dk-subsection-title">What You Gain (Active Building Metrics)</h3>
+            <div class="dk-econ-grid">
+              <div class="dk-econ-item">
+                <div class="dk-econ-label">Focus Hours</div>
+                <div class="dk-econ-value">10+ / wk</div>
+                <div class="dk-econ-note">Redirected from passive browsing into building</div>
+              </div>
+              <div class="dk-econ-item">
+                <div class="dk-econ-label">Shipped Projects</div>
+                <div class="dk-econ-value">4+ / mo</div>
+                <div class="dk-econ-note">A real, functional portfolio of custom AI apps</div>
+              </div>
+              <div class="dk-econ-item">
+                <div class="dk-econ-label">Habit Mastery</div>
+                <div class="dk-econ-value">15 min / day</div>
+                <div class="dk-econ-note">Daily micro-actions that lock in building habits</div>
+              </div>
+              <div class="dk-econ-item">
+                <div class="dk-econ-label">Confidence</div>
+                <div class="dk-econ-value">100%</div>
+                <div class="dk-econ-note">Through persistent progress and accountability</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 9: TRACTION -->
+      <div class="dk-slide" id="slide-8">
+        <div class="dk-slide-header animate-fade-up">
+          <span class="dk-eyebrow">Traction & Roadmap</span>
+          <h2 class="dk-slide-heading">Where we are. Where we're going.</h2>
+        </div>
+        <div class="dk-traction-body">
+          <div class="dk-traction-now animate-fade-up d-1">
+            <h3 class="dk-subsection-title">Current State</h3>
+            <div class="dk-traction-items">
+              <div class="dk-traction-item">
+                <div class="dk-traction-label">Prototype</div>
+                <div class="dk-traction-value">Phase 1-3 Live</div>
+                <div class="dk-traction-note">Full emotional onboarding + archetype profiling + momentum discovery — functional and demo-ready.</div>
+              </div>
+              <div class="dk-traction-item">
+                <div class="dk-traction-label">Tech Stack</div>
+                <div class="dk-traction-value">React + Vite</div>
+                <div class="dk-traction-note">Production-ready frontend. Designed for mobile-first, iOS-safe, accessibility-compliant.</div>
+              </div>
+              <div class="dk-traction-item">
+                <div class="dk-traction-label">Stage</div>
+                <div class="dk-traction-value">Beta Release</div>
+                <div class="dk-traction-note">Building in public. Open waitlist signup for the first 1,000 active builders.</div>
+              </div>
+            </div>
+          </div>
+          <div class="dk-roadmap-section animate-fade-up d-2">
+            <h3 class="dk-subsection-title">Execution Roadmap</h3>
+            <div class="dk-roadmap-timeline">
+              <div class="dk-roadmap-item dk-roadmap-live">
+                <div class="dk-roadmap-dot"></div>
+                <div class="dk-roadmap-content">
+                  <div class="dk-roadmap-top">
+                    <span class="dk-roadmap-period">Now</span>
+                    <span class="dk-roadmap-badge dk-badge-live">● Live</span>
+                  </div>
+                  <h4 class="dk-roadmap-title">Prototype</h4>
+                  <ul class="dk-roadmap-list">
+                    <li>Conversation onboarding</li>
+                    <li>Archetype profiling</li>
+                    <li>Momentum quiz</li>
+                    <li>Results generation</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="dk-roadmap-item dk-roadmap-next">
+                <div class="dk-roadmap-dot"></div>
+                <div class="dk-roadmap-content">
+                  <div class="dk-roadmap-top">
+                    <span class="dk-roadmap-period">Q3 2025</span>
+                    <span class="dk-roadmap-badge dk-badge-next">◐ Next</span>
+                  </div>
+                  <h4 class="dk-roadmap-title">Execution Engine</h4>
+                  <ul class="dk-roadmap-list">
+                    <li>30-day challenge system</li>
+                    <li>AI Buddy MVP</li>
+                    <li>Push notifications</li>
+                    <li>Waitlist → beta</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="dk-roadmap-item dk-roadmap-planned">
+                <div class="dk-roadmap-dot"></div>
+                <div class="dk-roadmap-content">
+                  <div class="dk-roadmap-top">
+                    <span class="dk-roadmap-period">Q4 2025</span>
+                    <span class="dk-roadmap-badge dk-badge-planned">○ Planned</span>
+                  </div>
+                  <h4 class="dk-roadmap-title">Launch</h4>
+                  <ul class="dk-roadmap-list">
+                    <li>Paid tier activation</li>
+                    <li>Referral system</li>
+                    <li>Community MVP</li>
+                    <li>Content partnerships</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 10: TEAM & VISION -->
+      <div class="dk-slide" id="slide-9">
+        <div class="dk-slide-header animate-fade-up">
+          <span class="dk-eyebrow">Vision</span>
+          <h2 class="dk-slide-heading">The infrastructure of human activation.</h2>
+        </div>
+        <p class="dk-body-text dk-body-spacious animate-fade-up d-1">
+          Ed-Vinci is not a tool. It's a <strong>protocol.</strong>
+        </p>
+        <p class="dk-body-text dk-body-spacious animate-fade-up d-2">
+          The long-term vision is to become the underlying activation layer for every person entering the AI economy.
+          From individual builders to entire educational institutions. From career changers to corporate teams.
+        </p>
+        <p class="dk-body-text dk-body-spacious animate-fade-up d-3">
+          We believe the world doesn't need more information. It needs more activation.
+          More people shipping. More people building. More people moving from zero to one.
+        </p>
+        <div class="dk-vision-pillars">
+          <div class="dk-pillar animate-fade-up d-4">
+            <span class="dk-pillar-icon">🧬</span>
+            <h4 class="dk-pillar-title">Identity-First</h4>
+            <p class="dk-pillar-desc">Every user gets a builder identity before a to-do list. This creates intrinsic motivation.</p>
+          </div>
+          <div class="dk-pillar animate-fade-up d-5">
+            <span class="dk-pillar-icon">🔁</span>
+            <h4 class="dk-pillar-title">Systems Over Motivation</h4>
+            <p class="dk-pillar-desc">We don't rely on willpower. We build systems where the default action is progress.</p>
+          </div>
+          <div class="dk-pillar animate-fade-up d-5">
+            <span class="dk-pillar-icon">🌍</span>
+            <h4 class="dk-pillar-title">Protocol, Not Product</h4>
+            <p class="dk-pillar-desc">Ed-Vinci is designed to be the activation layer that sits beneath any AI learning or productivity tool.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 11: JOIN THE JOURNEY -->
+      <div class="dk-slide dk-slide-ask" id="slide-10">
+        <div class="dk-ask-inner">
+          <div class="animate-fade-up">
+            <span class="dk-eyebrow">Join the Journey</span>
+            <h2 class="dk-ask-title">
+              Your journey from consumer<br />
+              <span class="dk-cover-gradient">to builder starts now.</span>
+            </h2>
+          </div>
+          <div class="dk-ask-details animate-fade-up d-1">
+            <div class="dk-ask-card">
+              <h3 class="dk-ask-card-title">Get Early Access</h3>
+              <div class="dk-ask-amount">Become an Active Builder</div>
+              <p class="dk-ask-use">
+                Join our beta waitlist today. We onboard members in small cohorts to ensure everyone receives personalized AI buddy matching, custom roadmaps, and dedicated accountability support.
+              </p>
+            </div>
+          </div>
+          <div class="dk-ask-ctas animate-fade-up d-2">
+            <a href="/onboarding" class="dk-btn-primary dk-btn-large">
+              <span>Try the Product Now</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+            <a href="/waitlist" class="dk-btn-ghost dk-btn-large">Join the Waitlist</a>
+          </div>
+          <div class="dk-ask-contact animate-fade-up d-3">
+            <div class="dk-cover-logo" style="margin-bottom: 8px;">
+              <span class="dk-logo-icon">◆</span>
+              <span class="dk-logo-text">Ed-Vinci</span>
+            </div>
+            <p class="dk-ask-footer-text">Thank you for your time. We'd love to continue this conversation.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Controls Footer -->
+  <footer class="dk-controls">
+    <div class="dk-dots" id="pagination-dots">
+      <!-- JS will inject dots dynamically -->
+    </div>
+    <div class="dk-nav-arrows">
+      <button class="dk-arrow-btn dk-arrow-disabled" id="btn-prev" onclick="prevSlide()" title="Previous slide">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <button class="dk-arrow-btn dk-arrow-next" id="btn-next" onclick="nextSlide()" title="Next slide">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+  </footer>
+
+  <div class="dk-keyboard-hint">
+    <kbd>←</kbd> <kbd>→</kbd> or <kbd>Space</kbd> to navigate
+  </div>
+
+  <!-- PRINT MULTI-PAGE CONTAINER -->
+  <div class="dk-print-container" id="print-container">
+    <!-- JS will copy all slides here for print rendering -->
+  </div>
+
+  <!-- ─── JAVASCRIPT LOGIC ─────────────────────────────────────────────────────── -->
+  <script>
+    // Slide Metadata
+    const SLIDES_META = [
+      { id: 'cover', label: 'Cover' },
+      { id: 'problem', label: 'Problem' },
+      { id: 'market', label: 'Opportunity' },
+      { id: 'insight', label: 'Insight' },
+      { id: 'solution', label: 'Solution' },
+      { id: 'product', label: 'Product' },
+      { id: 'stakeholders', label: 'Schools & Parents' },
+      { id: 'model', label: 'Pricing & Value' },
+      { id: 'traction', label: 'Traction' },
+      { id: 'team', label: 'Team & Vision' },
+      { id: 'ask', label: 'Join the Journey' }
+    ];
+
+    let current = 0;
+    const slides = document.querySelectorAll('.dk-slide');
+    const total = slides.length;
+
+    // Elements
+    const counterCurrent = document.getElementById('counter-current');
+    const counterTotal = document.getElementById('counter-total');
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNext = document.getElementById('btn-next');
+    const paginationDots = document.getElementById('pagination-dots');
+    const printContainer = document.getElementById('print-container');
+
+    // Initialize pagination dots
+    function initPagination() {
+      paginationDots.innerHTML = '';
+      SLIDES_META.forEach((meta, idx) => {
+        const btn = document.createElement('button');
+        btn.className = `dk-dot-btn ${idx === current ? 'dk-dot-active' : ''}`;
+        btn.title = meta.label;
+        btn.onclick = () => goToSlide(idx);
+        
+        btn.innerHTML = `
+          <span class="dk-dot-label">${meta.label}</span>
+          <div class="dk-dot-indicator"></div>
+        `;
+        paginationDots.appendChild(btn);
+      });
+      
+      counterTotal.textContent = String(total).padStart(2, '0');
+    }
+
+    // Populate Print Container for exporting
+    function initPrintContainer() {
+      printContainer.innerHTML = '';
+      slides.forEach((slide) => {
+        const printSlide = document.createElement('div');
+        printSlide.className = 'dk-print-slide';
+        printSlide.appendChild(slide.cloneNode(true));
+        printContainer.appendChild(printSlide);
+      });
+    }
+
+    // Show slide
+    function goToSlide(idx) {
+      if (idx < 0 || idx >= total) return;
+      
+      current = idx;
+      
+      // Update Slide Classnames
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active', 'slide-left', 'slide-right');
+        if (i === current) {
+          slide.classList.add('active');
+        } else if (i < current) {
+          slide.classList.add('slide-left');
+        } else {
+          slide.classList.add('slide-right');
+        }
+      });
+
+      // Update Nav Indicators
+      counterCurrent.textContent = String(current + 1).padStart(2, '0');
+      
+      // Update Dots
+      const dots = paginationDots.querySelectorAll('.dk-dot-btn');
+      dots.forEach((dot, i) => {
+        dot.classList.remove('dk-dot-active', 'dk-dot-past');
+        if (i === current) {
+          dot.classList.add('dk-dot-active');
+        } else if (i < current) {
+          dot.classList.add('dk-dot-past');
+        }
+      });
+
+      // Update Arrow Buttons
+      if (current === 0) {
+        btnPrev.classList.add('dk-arrow-disabled');
+        btnPrev.disabled = true;
+      } else {
+        btnPrev.classList.remove('dk-arrow-disabled');
+        btnPrev.disabled = false;
+      }
+
+      if (current === total - 1) {
+        btnNext.classList.add('dk-arrow-disabled');
+        btnNext.disabled = true;
+      } else {
+        btnNext.classList.remove('dk-arrow-disabled');
+        btnNext.disabled = false;
+      }
+    }
+
+    function prevSlide() {
+      if (current > 0) goToSlide(current - 1);
+    }
+
+    function nextSlide() {
+      if (current < total - 1) goToSlide(current + 1);
+    }
+
+    // Keyboard handlers
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+        e.preventDefault();
+        nextSlide();
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        prevSlide();
+      }
+    });
+
+    // ─── ARCHETYPE SWITCHER LOGIC (Slide 6) ───────────────────────────────────
+    const archetypes = [
+      { emoji: '🏗️', name: 'The Architect', desc: 'Sees systems where others see chaos. Wants to build infrastructure that lasts.', color: '#4F8EF7' },
+      { emoji: '⚡', name: 'The Operator', desc: 'Makes things happen. Efficiency is their superpower. Turns ideas into execution.', color: '#F7A94F' },
+      { emoji: '🎨', name: 'The Creator', desc: 'Expresses through building. Outputs aren\'t just functional — they\'re meaningful.', color: '#E74F9A' },
+      { emoji: '🧭', name: 'The Explorer', desc: 'Thrives on discovery. Always first to try new tools and push boundaries.', color: '#4FC7A0' },
+      { emoji: '🎯', name: 'The Strategist', desc: 'Thinks three moves ahead. Doesn\'t just build — they position.', color: '#9B59B6' }
+    ];
+
+    let activeArch = 0;
+    let archTimer = null;
+    let autoCycleEnabled = true;
+
+    function selectArchetype(idx) {
+      activeArch = idx;
+      
+      const archContainer = document.getElementById('arch-list-container');
+      const items = archContainer.querySelectorAll('.dk-arch-item');
+      
+      items.forEach((item, i) => {
+        item.classList.remove('dk-arch-active');
+        if (i === activeArch) {
+          item.classList.add('dk-arch-active');
+        }
+      });
+    }
+
+    // Auto cycle archetypes every 2.8s unless user interacts
+    function startArchCycle() {
+      archTimer = setInterval(() => {
+        if (autoCycleEnabled) {
+          activeArch = (activeArch + 1) % archetypes.length;
+          selectArchetype(activeArch);
+        }
+      }, 2800);
+    }
+
+    // Stop auto cycling on click
+    document.getElementById('arch-list-container').addEventListener('click', () => {
+      autoCycleEnabled = false;
+      if (archTimer) clearInterval(archTimer);
+    });
+
+    // Initialize Page
+    initPagination();
+    initPrintContainer();
+    startArchCycle();
+    
+    // Set initial position of slides
+    goToSlide(0);
+
+  </script>
+</body>
+</html>
