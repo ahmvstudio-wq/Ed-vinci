@@ -24,10 +24,41 @@ type ChatMessage = {
 // ─── CONVERSATION TREE ───────────────────────────────────────────────────────
 
 const CONVERSATION_STEPS: Record<string, ConversationStep> = {
+  welcome: {
+    id: 'welcome',
+    messages: [
+      "Hi, what's up?",
+      "Tell me your name."
+    ],
+    type: 'text-input',
+    placeholder: "Type your name...",
+    nextStep: () => 'explain_capabilities',
+    observation: () => null
+  },
+
+  explain_capabilities: {
+    id: 'explain_capabilities',
+    messages: [
+      "Nice to meet you, {{name}}! ◆",
+      "Ed-Vinci is the activation engine for the AI generation.",
+      "Instead of reading lists of tools or watching another course, the product explains itself through the experience.",
+      "Right here in this chat, I'm going to guide you to:",
+      "1. Diagnose your unique AI Builder Archetype",
+      "2. Gauge your current Focus & Momentum levels",
+      "3. Set up your personalized 30-Day Execution Roadmap",
+      "4. Match you with an AI Buddy built for your style",
+      "Ready to start building?"
+    ],
+    type: 'options',
+    options: ["Let's do it!", "I'm ready"],
+    nextStep: () => 'start',
+    observation: () => null
+  },
+
   start: {
     id: 'start',
     messages: [
-      "Yo bro, before we even get into all this AI stuff...",
+      "Awesome, let's get straight to it.",
       "Tell me straight up.",
       "Are you feeling like you're falling behind right now?"
     ],
@@ -503,12 +534,14 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
 
 function ConversationScreen({
   onComplete,
+  answers,
   setAnswers,
 }: {
   onComplete: () => void;
+  answers: Record<string, string>;
   setAnswers: React.Dispatch<React.SetStateAction<Record<string, string>>>;
 }) {
-  const [currentStepId, setCurrentStepId] = useState('start');
+  const [currentStepId, setCurrentStepId] = useState('welcome');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isTyping, setIsTyping] = useState(true);
   const [showOptions, setShowOptions] = useState(false);
@@ -517,29 +550,33 @@ function ConversationScreen({
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
+ 
   const currentStep = CONVERSATION_STEPS[currentStepId];
-
+ 
   const scrollToBottom = useCallback(() => {
     setTimeout(() => {
       chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, 100);
   }, []);
-
+ 
   // Process message queue
   useEffect(() => {
     if (!currentStep) return;
-
+ 
     const stepMessages = currentStep.messages;
-
+ 
     if (currentMessageIndex < stepMessages.length) {
       setIsTyping(true);
       setShowOptions(false);
-
+ 
       const timer = setTimeout(() => {
+        let msgText = stepMessages[currentMessageIndex];
+        if (msgText.includes('{{name}}')) {
+          msgText = msgText.replace('{{name}}', answers['welcome'] || 'there');
+        }
         const newMsg: ChatMessage = {
           id: `${currentStepId}-${currentMessageIndex}`,
-          text: stepMessages[currentMessageIndex],
+          text: msgText,
           sender: 'ai',
         };
         setMessages(prev => [...prev, newMsg]);
@@ -621,7 +658,7 @@ function ConversationScreen({
 
   const handleTextSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (textInput.trim().length >= 10) {
+    if (textInput.trim().length > 0) {
       handleAnswer(textInput.trim());
       setTextInput('');
     }
@@ -727,7 +764,7 @@ function ConversationScreen({
                 <button
                   type="submit"
                   className="onb-send-btn"
-                  disabled={textInput.trim().length < 10}
+                  disabled={textInput.trim().length === 0}
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
@@ -798,6 +835,7 @@ export function Onboarding() {
           >
             <ConversationScreen
               onComplete={handleConversationComplete}
+              answers={answers}
               setAnswers={setAnswers}
             />
           </motion.div>
