@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
@@ -471,20 +471,27 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
         {/* CTA Button */}
         <AnimatePresence>
           {phase >= 4 && (
-            <motion.button
-              className="onb-start-btn"
+            <motion.div
+              className="onb-intro-actions"
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              whileHover={{ scale: 1.04, boxShadow: '0 8px 40px rgba(79, 142, 247, 0.3)' }}
-              whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              onClick={onStart}
             >
-              <span>Start</span>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </motion.button>
+              <motion.button
+                className="onb-start-btn"
+                whileHover={{ scale: 1.04, boxShadow: '0 8px 40px rgba(79, 142, 247, 0.3)' }}
+                whileTap={{ scale: 0.97 }}
+                onClick={onStart}
+              >
+                <span>Start</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </motion.button>
+              <Link to="/landing" className="onb-landing-link">
+                View Landing Page
+              </Link>
+            </motion.div>
           )}
         </AnimatePresence>
       </div>

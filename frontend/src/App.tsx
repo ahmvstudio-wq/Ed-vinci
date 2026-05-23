@@ -24,10 +24,9 @@ function AnimatedRoutes() {
         style={{ minHeight: '100vh' }}
       >
         <Routes location={location} key={location.pathname}>
-          {/* Landing page is now the root */}
-          <Route path="/" element={<Landing />} />
+          {/* Onboarding experience is now the root */}
+          <Route path="/" element={<Onboarding />} />
           <Route path="/landing" element={<Landing />} />
-          {/* Onboarding experience */}
           <Route path="/onboarding" element={<Onboarding />} />
           {/* Waitlist */}
           <Route path="/waitlist" element={<Waitlist />} />
