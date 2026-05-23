@@ -190,9 +190,24 @@ function WaitlistForm({ onSuccess }: { onSuccess: (email: string) => void }) {
     if (!isValidEmail) { setError('Please enter a valid email.'); return; }
     setSubmitting(true);
     setError('');
-    // Simulate API
-    await new Promise(r => setTimeout(r, 1400));
-    onSuccess(email);
+
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, role }),
+      });
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.error || `Server error ${res.status}`);
+      }
+
+      onSuccess(email);
+    } catch (err: any) {
+      setError(err.message || 'Something went wrong. Please try again.');
+      setSubmitting(false);
+    }
   };
 
   const roles = [

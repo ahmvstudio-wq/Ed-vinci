@@ -7,6 +7,7 @@ import cardRouter from './routes/card';
 import progressRouter from './routes/progress';
 import refineRouter from './routes/refine';
 import generateDayRouter from './routes/generateDay';
+import waitlistRouter from './routes/waitlist';
 
 const app = express();
 app.use(express.json());
@@ -18,6 +19,7 @@ app.use('/api', cardRouter);
 app.use('/api', progressRouter);
 app.use('/api', refineRouter);
 app.use('/api', generateDayRouter);
+app.use('/api', waitlistRouter);
 
 // Serve static files from the React app
 const distPath = path.resolve(process.cwd(), 'frontend/dist');

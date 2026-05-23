@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import html2canvas from 'html2canvas';
 
 export function Identity() {
   const [data, setData] = useState<any>(null);
+  const [exporting, setExporting] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +24,27 @@ export function Identity() {
   const dayOne = data.dayOne || {};
   const stack = data.stack || {};
 
+  const handleExport = async () => {
+    if (!cardRef.current || exporting) return;
+    setExporting(true);
+    try {
+      const canvas = await html2canvas(cardRef.current, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#ffffff',
+        logging: false,
+      });
+      const link = document.createElement('a');
+      link.download = `edvinci-identity-${(identity.archetypeName || 'card').toLowerCase().replace(/\s+/g, '-')}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } catch (err) {
+      console.error('Export failed:', err);
+    } finally {
+      setExporting(false);
+    }
+  };
+
   return (
     <div className="id-root">
       <div className="quiz-bg-orbs">
@@ -29,7 +53,7 @@ export function Identity() {
       </div>
 
       <div className="id-content">
-        <motion.div 
+        <motion.div
           className="id-header"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -38,10 +62,11 @@ export function Identity() {
           <h1 className="id-title">Your Operating Identity</h1>
           <p className="id-subtitle">Your hidden market value, revealed.</p>
         </motion.div>
-        
+
         <div className="id-bento">
-          {/* Identity Core & Deep Dive */}
-          <motion.div 
+          {/* ── Identity Core Card (exportable) ── */}
+          <motion.div
+            ref={cardRef}
             className="id-card-main"
             style={{ gridColumn: 'span 12' }}
             initial={{ opacity: 0, y: 30 }}
@@ -52,7 +77,7 @@ export function Identity() {
               <div className="id-avatar-box">
                 {identity.archetypeName?.charAt(0) || '◆'}
               </div>
-              
+
               <div className="id-main-info">
                 <div className="id-label">
                   <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--lp-blue)', display: 'inline-block' }}></span>
@@ -61,8 +86,7 @@ export function Identity() {
                 <h2 className="id-archetype">
                   {identity.oneLineIdentity || identity.archetypeName || 'Calculating Identity...'}
                 </h2>
-                
-                {/* Deep Dive paragraphs */}
+
                 <div className="id-deep-dive">
                   {identity.deepDive ? (
                     identity.deepDive.split('\n\n').map((p: string, i: number) => (
@@ -120,10 +144,16 @@ export function Identity() {
                 <p className="id-market-desc">{identity.monetisationPath || 'Build a scalable productised service around your core skill.'}</p>
               </div>
             </div>
+
+            {/* Ed-Vinci watermark inside exported card */}
+            <div className="id-card-watermark">
+              <span className="id-watermark-icon">◆</span>
+              <span className="id-watermark-text">Found my direction at Ed-Vinci · edvinci.ai</span>
+            </div>
           </motion.div>
 
           {/* Engine / Tool Stack */}
-          <motion.div 
+          <motion.div
             className="id-card-side"
             style={{ gridColumn: 'span 6' }}
             initial={{ opacity: 0, x: -30 }}
@@ -169,7 +199,7 @@ export function Identity() {
           </motion.div>
 
           {/* First Project (Day One) */}
-          <motion.div 
+          <motion.div
             className="id-card-wide"
             style={{ gridColumn: 'span 6' }}
             initial={{ opacity: 0, x: 30 }}
@@ -182,11 +212,11 @@ export function Identity() {
               </svg>
               Tonight's Objective
             </div>
-            
+
             <div className="id-project" style={{ fontSize: '20px', marginTop: '16px', marginBottom: '12px' }}>
               {dayOne.firstProject || 'Architecting your first milestone...'}
             </div>
-            
+
             {dayOne.projectDescription && (
               <p style={{ fontSize: '14px', lineHeight: 1.6, color: 'var(--lp-muted)', margin: '0 0 24px' }}>
                 {dayOne.projectDescription}
@@ -221,17 +251,48 @@ export function Identity() {
             )}
           </motion.div>
 
-          {/* Proceed CTA */}
-          <motion.div 
+          {/* CTA Row */}
+          <motion.div
             className="id-cta-row"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 1 }}
           >
-            <button 
+            {/* Export button */}
+            <motion.button
+              className="id-export-btn"
+              onClick={handleExport}
+              disabled={exporting}
+              whileHover={!exporting ? { scale: 1.02, y: -1 } : {}}
+              whileTap={!exporting ? { scale: 0.97 } : {}}
+            >
+              {exporting ? (
+                <>
+                  <motion.span
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
+                    style={{ display: 'inline-block', fontSize: '16px' }}
+                  >
+                    ⟳
+                  </motion.span>
+                  <span>Exporting…</span>
+                </>
+              ) : (
+                <>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>Download Card</span>
+                </>
+              )}
+            </motion.button>
+
+            <button
               className="lp-btn-primary lp-btn-large"
               onClick={() => navigate('/path')}
-              style={{ width: '100%', maxWidth: '400px', justifyContent: 'center' }}
+              style={{ flex: 1, maxWidth: '400px', justifyContent: 'center' }}
             >
               <span>Commit to the 30-Day Path</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
